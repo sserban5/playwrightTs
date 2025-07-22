@@ -36,7 +36,7 @@ export class LoginPage {
   }
 
   async goto() {
-    await this.page.goto(getUrl(URLs.loginPage)); // Use URL from config
+    await this.page.goto(getUrl(URLs.loginPage));  
   }
 
   /*
@@ -87,46 +87,5 @@ checking the top right buttons from the homepage
       await expect.soft(currentButton).toBeVisible();
     }
   }
-
   
 }
-
-/*
-simple locator    - ok
-locator + param   - getInputField
-locator + parent  - this.theParent.locator('button');
-
-click             - ok
-set-value         - .fill()
-get-text          - .innerText()
-get-attribute     - getAttribute()
-get-css           - 
-
-elm-state
-clickable         -  isEnabled() ??
-visibility        - .isVisible();
-presence          - ??
-isChecked() - Returns whether the element is checked. Throws if the element is not a checkbox or radio input.
-isHidden() <-> isVisible()
-isDisabled() <-> isEnabled()
-isEditable() - for <input>, <textarea>, <select>
-
-assert            - expect.smth.is
-soft-assert       - expect.soft.
-
-if                - ok
-if + else         -
-
-for               - ok 
-while             - ok
-
-Getting from files:
-creds             - ok
-url               - ok
-text              - ok
-
-env               - ok
-
-The function uses single quotes (') instead of backticks (`) for the template literal, causing ${buttonId} to be treated as a literal string.
-
-*/

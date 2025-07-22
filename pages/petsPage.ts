@@ -15,16 +15,6 @@ export class PetsPage {
     this.petsPagePaginator = page.locator('mat-select');
     this.petsPagePaginatorOptionCount = page.locator('mat-option');
     this.petsPageRowCount = page.locator('tr#table__pet-row');
-
-/*
-id, check if it is = to index
-
-check if one of the tags is the category, lower case
-get the other one
-
-
-
-*/
     }
     
 async maxOptionLocator(optionIndex: number): Promise<Locator>{
@@ -59,7 +49,15 @@ navigate to pets, set the paginator to max,check if category is in tags and get 
         const currentStatus = await (await this.petsTableRowCells(index, tableCellClass[3])).innerText();
         const currentTags = await (await this.petsTableRowCells(index, tableCellClass[4])).innerText();
 
-        console.log(`currentId: ${currentId}, currentName: ${currentName}, currentCategory: ${currentCategory}, currentStatus: ${currentStatus}, currentTags: ${currentTags}`)
+        const cleanedTags = currentTags.replace(/\n/g, ' ').trim();
+        
+        expect.soft(index.toString()).toBe(currentId);
+        expect.soft(cleanedTags.toLowerCase()).toContain(currentCategory.toLowerCase());
+        
+        console.log(`Pet from row ${currentId} is a ${cleanedTags.split(' ')[1]} ${cleanedTags.split(' ')[0]}, it is named ${currentName} and it is ${currentStatus}.`)
+   
     }
   }
+
+
 }
