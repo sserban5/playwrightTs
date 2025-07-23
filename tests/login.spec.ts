@@ -1,61 +1,75 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
-import { PetsPage } from '../pages/petsPage';
-import { TestPage } from '../pages/testPage';
-import { assert } from 'console';
 
+/*
+Login tests with in file / in test.describe hooks
+*/
 
-test.describe('Login Tests', () => {
+test.describe('Login Tests, with valid credentials', () => {
 
-  test('Go through the test page', async ({ page }) => {
-      const testPage = new TestPage(page);
-      await testPage.goto();
-      await testPage.alignmentTesting();
-      await testPage.dragDropTesting();
-      await testPage.alertInput('Wes');
-  });
-
-  test('should login successfully with valid credentials, check the top right menu buttons, click on "Pets", then set the paginator to max, then check the table', async ({ page }) => {
+  test('Should login successfully with valid credentials', async ({ page }) => {
     const loginPage = new LoginPage(page);
-    const petsPage = new PetsPage(page);
-    // Login as 'user'
+
     await loginPage.goto();
     await loginPage.login('demoUser');
-    const result = await loginPage.waitForErrorBarOrHomeUrl();
-    expect(result.condition).toBe('homeUrl');
-    await loginPage.checkButtonVisibility();
 
-    await petsPage.petsTableCheck();
-  });
-
-  test('should login successfully with valid credentials', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    const petsPage = new PetsPage(page);
-    // Login as 'user'
-    await loginPage.goto();
-    await loginPage.login('demoUser');
     const result = await loginPage.waitForErrorBarOrHomeUrl();
     expect(result.condition).toBe('homeUrl');
   });
 
-  test('should login successfully with valid credentials, with params and parents', async ({ page }) => {
+  test('Should login successfully with valid credentials, with params and parents', async ({ page }) => {
     const loginPage = new LoginPage(page);
-    // Login as 'user'
+
     await loginPage.goto();
     await loginPage.loginWithParentAndParams('demoUser');
+
     const result = await loginPage.waitForErrorBarOrHomeUrl();
     expect(result.condition).toBe('homeUrl');
+
     await loginPage.checkButtonVisibility();
   });
 
+  //should appear only for this test.describe
+  test.beforeAll(async () => {
+    const timestampStart = new Date().toISOString();
+    console.log(`[from beforeAll, in test.describe hook] Tests started at: ${timestampStart}`);
+  });
+
+  test.afterAll(async () => {
+    const timestampEnd = new Date().toISOString();
+    console.log(`[from afterAll, in test.describe hook] Tests ended at: ${timestampEnd}`);
+  });
+
+  test.beforeEach(async ({ }, testInfo) => {
+    const timestamp = new Date().toLocaleString('en-US', { timeZone: 'Europe/Bucharest' });
+    console.log(`[from beforeEach, in test.describe hook] Test '${testInfo.title}' started at ${timestamp}`);
+  });
+
+  test.afterEach(async ({ }, testInfo) => {
+    const timestamp = new Date().toLocaleString('en-Gb', { timeZone: 'Europe/Bucharest' });
+    console.log(`[from afterEach, in test.describe hook] Test '${testInfo.title}' ended at ${timestamp}`);
+  });
+
+});
+
+test.beforeAll(async () => {
+  const timestampStart = new Date().toISOString();
+  console.log(`[from beforeAll, in file hook] Execution started at: ${timestampStart}`);
+});
+
+test.describe('Login Tests, with invalid credentials', () => {
   test('Should show error for invalid credentials', async ({ page }) => {
-   const loginPage = new LoginPage(page);
-    // Login as 'user'
+    const loginPage = new LoginPage(page);
+
     await loginPage.goto();
     await loginPage.login('wrongUser');
-    
+
     const result = await loginPage.waitForErrorBarOrHomeUrl();
     expect(result.condition).toBe('errorBarVisible');
+  });
 
+  test.beforeEach(async ({ }, testInfo) => {
+    const timestamp = new Date().toLocaleString('en-US', { timeZone: 'Europe/Bucharest' });
+    console.log(`[from beforeEach, in test.describe2 hook] Test '${testInfo.title}' started at ${timestamp}`);
   });
 });

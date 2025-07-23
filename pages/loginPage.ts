@@ -68,7 +68,7 @@ export class LoginPage {
     const start = Date.now();
     while (Date.now() - start < timeout) {
       isErrorBarVisible = await this.errorBar.isVisible();
-      const url = await this.page.url();
+      const url = this.page.url();
       isHomeUrl = url.includes(getUrl(URLs.homePage));
       if (isErrorBarVisible) return { condition: 'errorBarVisible', value: true };
       if (isHomeUrl) return { condition: 'homeUrl', value: true };
