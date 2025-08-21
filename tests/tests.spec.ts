@@ -5,7 +5,7 @@ import { TestPage } from '../pages/testPage';
 import { assert } from 'console';
 
 
-test.describe('Login Tests', () => {
+test.describe('Pets page Tests', () => {
 
   test('Go through the test page', async ({ page }) => {
       const testPage = new TestPage(page);

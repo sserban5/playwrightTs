@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/sserban5/playwrightTs#readme",
   "devDependencies": {
-    "@playwright/test": "^1.54.1",
+    "@faker-js/faker": "^9.9.0",
+    "@playwright/test": "^1.55.0",
     "@types/node": "^24.0.14",
+    "@types/pdf-parse": "^1.1.5",
     "dotenv": "^17.2.0",
     "playwright": "^1.54.1",
     "ts-node": "^10.9.2",
@@ -29,7 +31,12 @@
     "test": "tests"
   },
   "dependencies": {
+    "pdf-parse": "^1.1.1",
+    "pdf-poppler": "^0.2.1",
+    "pdf-to-img": "^4.5.0",
+    "pdf2pic": "^3.2.0",
     "playwright-core": "^1.54.1",
+    "tesseract.js": "^6.0.1",
     "undici-types": "^7.8.0"
   },
   "type": "commonjs"

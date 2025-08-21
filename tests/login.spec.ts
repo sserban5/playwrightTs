@@ -40,7 +40,7 @@ test.describe('Login Tests, with valid credentials', () => {
     console.log(`[from afterAll, in test.describe hook] Tests ended at: ${timestampEnd}`);
   });
 
-  test.beforeEach(async ({ }, testInfo) => {
+  test.beforeEach(async ({ page }, testInfo,) => {
     const timestamp = new Date().toLocaleString('en-US', { timeZone: 'Europe/Bucharest' });
     console.log(`[from beforeEach, in test.describe hook] Test '${testInfo.title}' started at ${timestamp}`);
   });
